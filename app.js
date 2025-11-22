@@ -77,16 +77,16 @@
             controls.className = 'controls';
 
             const btnListen = document.createElement('button');
-            btnListen.className = 'btn-listen';
+            btnListen.className = 'btn btn-listen';
             btnListen.type = 'button';
-            btnListen.textContent = '👂 Listen';
+            btnListen.innerHTML = '👂 Listen';
             btnListen.addEventListener('click', () => speakText(phrase));
 
             const btnRecord = document.createElement('button');
-            btnRecord.className = 'btn-record';
+            btnRecord.className = 'btn btn-record';
             btnRecord.id = `rec-btn-${index}`;
             btnRecord.type = 'button';
-            btnRecord.textContent = '🎙️ Practice';
+            btnRecord.innerHTML = '🎙️ Practice';
             btnRecord.addEventListener('click', () => startRecording(phrase, index));
 
             controls.appendChild(btnListen);

@@ -9,33 +9,44 @@
 <body>
 
 <div class="container">
+    <div class="site-nav">
+      <div>
+        <a href="index.html" class="btn ghost">← Home</a>
+      </div>
+      <div class="site-actions">
+        <a href="cards.html" class="btn ghost">Word Cards</a>
+      </div>
+    </div>
+
     <h1>🎤 English Trainer</h1>
-        <div class="app-header">
-            <div class="header-note">Practice speaking and get per-word feedback.</div>
-            <div id="legend">
-                <div class="legend-item"><span class="legend-swatch correct"></span> <small>Correct</small></div>
-                <div class="legend-item"><span class="legend-swatch incorrect"></span> <small>Incorrect</small></div>
-                <label class="toggle-label"><input id="toggleHighlight" type="checkbox" style="transform:scale(1.1)" checked /> Word highlight</label>
-            </div>
+    <div class="app-header">
+        <div class="header-note">Practice speaking and get per-word feedback.</div>
+        <div id="legend">
+            <div class="legend-item"><span class="legend-swatch correct"></span> <small>Correct</small></div>
+            <div class="legend-item"><span class="legend-swatch incorrect"></span> <small>Incorrect</small></div>
+            <label class="toggle-label"><input id="toggleHighlight" type="checkbox" style="transform:scale(1.1)" checked /> Word highlight</label>
         </div>
+    </div>
 
     <!-- Add new phrase -->
-            <div class="input-group">
-                <input
-                    type="text"
-                    id="newPhraseInput"
-                    placeholder="Enter a phrase (e.g., 'Where is the library?')"
-                />
-                <button id="addPhraseBtn">Add</button>
-                <button id="downloadPhrasesBtn" class="btn-export" title="Export current phrases as JSON">Export JSON</button>
-                <button id="importPhrasesBtn" class="btn-import" title="Import phrases from JSON">Import JSON</button>
-                <input id="importPhrasesInput" type="file" accept=".json,application/json" style="display:none" />
-            </div>
+    <div class="input-group">
+        <input
+            type="text"
+            id="newPhraseInput"
+            placeholder="Enter a phrase (e.g., 'Where is the library?')"
+        />
+        <button id="addPhraseBtn" class="btn">Add</button>
+        <button id="downloadPhrasesBtn" class="btn btn-export" title="Export current phrases as JSON">Export JSON</button>
+        <button id="importPhrasesBtn" class="btn btn-import" title="Import phrases from JSON">Import JSON</button>
+        <input id="importPhrasesInput" type="file" accept=".json,application/json" style="display:none" />
+    </div>
 
     <!-- List of phrases -->
     <div id="phrasesList"></div>
 
-    <div style="margin-top:16px;text-align:center"><a href="index.html">← Back to Home</a></div>
+        <div style="margin-top:16px;text-align:center">
+            <a href="index.html" class="btn ghost">← Back to Home</a>
+        </div>
 </div>
 
     <script src="app.js" defer></script>

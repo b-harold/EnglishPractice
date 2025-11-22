@@ -29,20 +29,22 @@
   }
 
   function renderCard() {
-    const el = document.getElementById('card');
-    if (!el) return;
+    const container = document.querySelector('.card');
+    const front = document.getElementById('cardFront');
+    const back = document.getElementById('cardBack');
+    const progress = document.getElementById('cardProgress');
+    if (!front || !back || !container) return;
     if (!cards.length) {
-      el.textContent = 'No cards available.';
+      front.textContent = 'No cards available.';
+      back.textContent = '';
+      if (progress) progress.textContent = '0 / 0';
       return;
     }
     const c = cards[idx % cards.length];
-    if (!flipped) {
-      el.textContent = c.term;
-      el.classList.remove('flipped');
-    } else {
-      el.textContent = c.translation || '—';
-      el.classList.add('flipped');
-    }
+    front.textContent = c.term || '';
+    back.textContent = c.translation || '';
+    if (flipped) container.classList.add('flipped'); else container.classList.remove('flipped');
+    if (progress) progress.textContent = `${idx + 1} / ${cards.length}`;
   }
 
   function next() { idx = (idx + 1) % cards.length; flipped = false; renderCard(); }
@@ -93,14 +95,14 @@
 
     loadCardsJson().then(data => {
       if (Array.isArray(data) && data.length) {
-        // normalize items to have term/translation
-        cards = data.map(item => ({ term: String(item.term || item.word || ''), translation: String(item.translation || item.meaning || '') }));
-        idx = 0; renderCard();
-      } else {
+          // normalize items to have term/translation
+          cards = data.map(item => ({ term: String(item.term || item.word || ''), translation: String(item.translation || item.meaning || '') }));
+          idx = 0; renderCard();
+        } else {
         // fallback
         loadPhrasesFallback().then(ps => {
-          cards = buildCardsFromPhrases(ps || []);
-          idx = 0; renderCard();
+            cards = buildCardsFromPhrases(ps || []);
+            idx = 0; renderCard();
         });
       }
     });

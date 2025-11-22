@@ -19,17 +19,26 @@
     <p class="header-note">Flip through words extracted from phrases. Click a card to flip it.</p>
 
     <div class="card-area">
-      <div id="card" class="card">Loading…</div>
-      <div class="card-controls">
-        <button id="prevBtn">◀ Prev</button>
-        <button id="flipBtn">Flip</button>
-        <button id="playBtn" class="btn-play">🔊 Play</button>
-        <button id="shuffleBtn" class="btn-shuffle">🔀 Shuffle</button>
-        <button id="nextBtn">Next ▶</button>
+      <div class="card">
+        <div id="cardInner" class="card-inner">
+          <div id="cardFront" class="card-front">Loading…</div>
+          <div id="cardBack" class="card-back"> </div>
+        </div>
       </div>
+      <div class="card-controls">
+        <button id="prevBtn" class="btn ghost">◀ Prev</button>
+        <button id="flipBtn" class="btn ghost">Flip</button>
+        <button id="playBtn" class="btn btn-play">🔊 Play</button>
+        <button id="shuffleBtn" class="btn btn-shuffle">🔀 Shuffle</button>
+        <button id="nextBtn" class="btn ghost">Next ▶</button>
+      </div>
+      <div id="cardProgress" class="card-progress">0 / 0</div>
     </div>
 
-    <div style="margin-top:16px;text-align:center"><a href="index.html">← Back to Home</a> · <a href="trainer.html">Trainer</a></div>
+    <div style="margin-top:16px;text-align:center">
+      <a href="index.html" class="btn ghost" style="margin-right:8px">← Back to Home</a>
+      <a href="trainer.html" class="btn ghost">Trainer</a>
+    </div>
   </div>
 
   <script src="cards.js" defer></script>

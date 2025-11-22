@@ -7,15 +7,37 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" style="text-align:center">
-        <h1>EnglishPractice</h1>
-        <p style="color:#4b5563;">A small app to practice English pronunciation and words.</p>
-        <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap">
-            <a href="trainer.html"><button style="min-width:160px">Open Trainer</button></a>
-            <a href="cards.html"><button style="min-width:160px">Word Cards</button></a>
-            <a href="phrases.json" download><button style="min-width:160px">Download Phrases</button></a>
+    <div class="container">
+        <div class="hero">
+            <h1>EnglishPractice — Speak with Confidence</h1>
+            <p>Practice pronunciation, learn important words & phrasal verbs, and get immediate per-word feedback using your browser's speech APIs. Quick, simple, and privacy-first — everything runs in your browser.</p>
+            <div class="hero-ctas">
+                <a href="trainer.html" class="btn">Open Trainer</a>
+                <a href="cards.html" class="btn secondary">Word Cards</a>
+                <a href="phrases.json" download class="btn ghost">Export phrases</a>
+            </div>
         </div>
-        <div style="margin-top:20px;color:#6b7280">Tip: use Chrome or Edge for best speech recognition support.</div>
+
+        <div class="feature-grid">
+            <div class="feature">
+                <h3>Real-time feedback</h3>
+                <p>Speak phrases and see which words you pronounced correctly — helpful highlights and confidence shown per phrase.</p>
+            </div>
+            <div class="feature">
+                <h3>Targeted vocabulary</h3>
+                <p>Study important words and phrasal verbs with quick translations and TTS playback.</p>
+            </div>
+            <div class="feature">
+                <h3>Customizable lists</h3>
+                <p>Add your own phrases, export and import JSON to carry your progress between devices.</p>
+            </div>
+            <div class="feature">
+                <h3>Works offline-ish</h3>
+                <p>Phrases are stored in localStorage; no backend required. For best speech recognition, use Chrome/Edge.</p>
+            </div>
+        </div>
+
+        <div class="footer">Built with web APIs • Privacy-first • Try the Trainer and Cards</div>
     </div>
 </body>
 </html>
