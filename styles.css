@@ -93,6 +93,13 @@ button:disabled { background-color: #9ca3af; cursor: not-allowed; }
     margin-bottom: 15px;
     background: #fff;
 }
+.card.hidden { visibility:hidden }
+.card.flipped { background:#fffef6; }
+.card-controls { display:flex;gap:10px; justify-content:center }
+.card-controls button { padding:8px 12px; border-radius:8px; border:none; background:var(--primary); color:#fff; cursor:pointer }
+.card-controls button:hover { opacity:0.95 }
+.btn-play { background:#0ea5e9 }
+.btn-shuffle { background:#10b981 }
 
 .phrase-text {
     font-size: 1.2rem;

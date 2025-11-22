@@ -1,41 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Pronunciation Trainer</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EnglishPractice — Home</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<div class="container">
-    <h1>🎤 English Trainer</h1>
-        <div class="app-header">
-            <div class="header-note">Practice speaking and get per-word feedback.</div>
-            <div id="legend">
-                <div class="legend-item"><span class="legend-swatch correct"></span> <small>Correct</small></div>
-                <div class="legend-item"><span class="legend-swatch incorrect"></span> <small>Incorrect</small></div>
-                <label class="toggle-label"><input id="toggleHighlight" type="checkbox" style="transform:scale(1.1)" checked /> Word highlight</label>
-            </div>
+    <div class="container" style="text-align:center">
+        <h1>EnglishPractice</h1>
+        <p style="color:#4b5563;">A small app to practice English pronunciation and words.</p>
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+            <a href="trainer.html"><button style="min-width:160px">Open Trainer</button></a>
+            <a href="cards.html"><button style="min-width:160px">Word Cards</button></a>
+            <a href="phrases.json" download><button style="min-width:160px">Download Phrases</button></a>
         </div>
-
-    <!-- Add new phrase -->
-            <div class="input-group">
-                <input
-                    type="text"
-                    id="newPhraseInput"
-                    placeholder="Enter a phrase (e.g., 'Where is the library?')"
-                />
-                <button id="addPhraseBtn">Add</button>
-                <button id="downloadPhrasesBtn" class="btn-export" title="Export current phrases as JSON">Export JSON</button>
-                <button id="importPhrasesBtn" class="btn-import" title="Import phrases from JSON">Import JSON</button>
-                <input id="importPhrasesInput" type="file" accept=".json,application/json" style="display:none" />
-            </div>
-
-    <!-- List of phrases -->
-    <div id="phrasesList"></div>
-</div>
-
-    <script src="app.js" defer></script>
+        <div style="margin-top:20px;color:#6b7280">Tip: use Chrome or Edge for best speech recognition support.</div>
+    </div>
 </body>
 </html>

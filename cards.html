@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Word Cards — EnglishPractice</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* small card-specific tweaks */
+    .card-area { display:flex;flex-direction:column;align-items:center;gap:12px }
+    .card { width:100%; max-width:420px; padding:24px; border-radius:12px; background:#fff; border:1px solid #e5e7eb; text-align:center; font-size:1.4rem; font-weight:700 }
+    .card.hidden { visibility:hidden }
+    .card-controls { display:flex;gap:10px }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔖 Word Cards</h1>
+    <p class="header-note">Flip through words extracted from phrases. Click a card to flip it.</p>
+
+    <div class="card-area">
+      <div id="card" class="card">Loading…</div>
+      <div class="card-controls">
+        <button id="prevBtn">◀ Prev</button>
+        <button id="flipBtn">Flip</button>
+        <button id="playBtn" class="btn-play">🔊 Play</button>
+        <button id="shuffleBtn" class="btn-shuffle">🔀 Shuffle</button>
+        <button id="nextBtn">Next ▶</button>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;text-align:center"><a href="index.html">← Back to Home</a> · <a href="trainer.html">Trainer</a></div>
+  </div>
+
+  <script src="cards.js" defer></script>
+</body>
+</html>
