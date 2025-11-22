@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Pronunciation Trainer</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --success: #22c55e;
+            --error: #ef4444;
+            --bg: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 { text-align: center; color: #1f2937; }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.9; }
+        button:disabled { background-color: #9ca3af; cursor: not-allowed; }
+
+        .phrase-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #fff;
+        }
+
+        .phrase-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #374151;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-listen { background-color: #0ea5e9; }
+        .btn-record { background-color: #f59e0b; }
+        .btn-recording { background-color: var(--error); animation: pulse 1.5s infinite; }
+
+        .result-area {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            background: #f9fafb;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .match-score {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎤 English Trainer</h1>
+    
+    <!-- Add new phrase -->
+    <div class="input-group">
+        <input type="text" id="newPhraseInput" placeholder="Enter a phrase (e.g., 'Where is the library?')" />
+        <button onclick="addPhrase()">Add</button>
+    </div>
+
+    <!-- List of phrases -->
+    <div id="phrasesList"></div>
+</div>
+
+<script>
+    // 1. SETUP & STATE
+    // Use standard SpeechRecognition or Webkit version (Chrome)
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const synthesis = window.speechSynthesis;
+    
+    // Check if browser supports it
+    if (!SpeechRecognition) {
+        alert("Your browser does not support Speech API. Please use Google Chrome or Edge.");
+    }
+
+    // Initial Data
+    let phrases = [
+        "Hello, how are you today?",
+        "I would like to learn English.",
+        "The weather is nice."
+    ];
+
+    // 2. CORE FUNCTIONS
+
+    function renderPhrases() {
+        const list = document.getElementById('phrasesList');
+        list.innerHTML = '';
+
+        phrases.forEach((phrase, index) => {
+            const card = document.createElement('div');
+            card.className = 'phrase-card';
+            card.innerHTML = `
+                <div class="phrase-text">${phrase}</div>
+                <div class="controls">
+                    <button class="btn-listen" onclick="speakText('${phrase.replace(/'/g, "\\'")}')">👂 Listen</button>
+                    <button class="btn-record" id="rec-btn-${index}" onclick="startRecording('${phrase.replace(/'/g, "\\'")}', ${index})">🎙️ Practice</button>
+                </div>
+                <div class="result-area" id="result-${index}"></div>
+            `;
+            list.appendChild(card);
+        });
+    }
+
+    function addPhrase() {
+        const input = document.getElementById('newPhraseInput');
+        const text = input.value.trim();
+        if (text) {
+            phrases.unshift(text); // Add to top
+            renderPhrases();
+            input.value = '';
+        }
+    }
+
+    // 3. TEXT TO SPEECH (Listen to correct pronunciation)
+    function speakText(text) {
+        // Cancel any current speech
+        synthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US'; // Set to US English
+        utterance.rate = 0.9; // Slightly slower for learning
+        synthesis.speak(utterance);
+    }
+
+    // 4. SPEECH TO TEXT (Record user)
+    function startRecording(targetPhrase, index) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        const btn = document.getElementById(`rec-btn-${index}`);
+        const resultDiv = document.getElementById(`result-${index}`);
+
+        btn.innerText = "🛑 Listening...";
+        btn.className = "btn-record btn-recording";
+        btn.disabled = true;
+        resultDiv.style.display = 'none';
+
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const userSpeech = event.results[0][0].transcript;
+            const confidence = event.results[0][0].confidence;
+            
+            // Compare and Score
+            const similarity = calculateSimilarity(targetPhrase, userSpeech);
+            
+            displayResult(index, targetPhrase, userSpeech, similarity);
+        };
+
+        recognition.onspeechend = () => {
+            recognition.stop();
+            resetButton(index);
+        };
+
+        recognition.onerror = (event) => {
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<span style="color:var(--error)">Error: ${event.error}. Try again.</span>`;
+            resetButton(index);
+        };
+    }
+
+    function resetButton(index) {
+        const btn = document.getElementById(`rec-btn-${index}`);
+        btn.innerText = "🎙️ Practice";
+        btn.className = "btn-record";
+        btn.disabled = false;
+    }
+
+    function displayResult(index, target, spoken, score) {
+        const resultDiv = document.getElementById(`result-${index}`);
+        resultDiv.style.display = 'block';
+        
+        let color = score > 80 ? 'var(--success)' : (score > 50 ? '#f59e0b' : 'var(--error)');
+        let message = score > 80 ? 'Great job!' : 'Keep trying!';
+
+        resultDiv.innerHTML = `
+            <div>You said: <em>"${spoken}"</em></div>
+            <div class="match-score" style="color:${color}">
+                Accuracy: ${score}% - ${message}
+            </div>
+        `;
+    }
+
+    // 5. ALGORITHM: LEVENSHTEIN DISTANCE
+    // This calculates how similar two strings are (0 to 100%)
+    function calculateSimilarity(s1, s2) {
+        let longer = s1;
+        let shorter = s2;
+        if (s1.length < s2.length) {
+            longer = s2;
+            shorter = s1;
+        }
+        let longerLength = longer.length;
+        if (longerLength === 0) {
+            return 1.0;
+        }
+        
+        // Clean strings: remove punctuation, lowercase
+        s1 = s1.toLowerCase().replace(/[^a-z0-9 ]/g, '');
+        s2 = s2.toLowerCase().replace(/[^a-z0-9 ]/g, '');
+        
+        let editDistance = getEditDistance(s1, s2);
+        let accuracy = (s1.length - editDistance) / s1.length;
+        
+        return Math.floor(accuracy * 100);
+    }
+
+    function getEditDistance(s1, s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+        let costs = new Array();
+        for (let i = 0; i <= s1.length; i++) {
+            let lastValue = i;
+            for (let j = 0; j <= s2.length; j++) {
+                if (i == 0) costs[j] = j;
+                else {
+                    if (j > 0) {
+                        let newValue = costs[j - 1];
+                        if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+            if (i > 0) costs[s2.length] = lastValue;
+        }
+        return costs[s2.length];
+    }
+
+    // Initialize
+    renderPhrases();
+
+</script>
+</body>
+</html>
