@@ -1,43 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>EnglishPractice — Home</title>
+    <title>Modern English Trainer Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1E3A8A",
+                        accent: "#D4AF37",
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#0F172A",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        display: ["Lora", "serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                        'lg': '1rem',
+                        'xl': '1.5rem',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .material-symbols-rounded {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            transition: background-color 0.3s ease;
+        }
+    </style>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <div class="container">
-        <div class="hero">
-            <h1>EnglishPractice — Speak with Confidence</h1>
-            <p>Practice pronunciation, learn important words & phrasal verbs, and get immediate per-word feedback using your browser's speech APIs. Quick, simple, and privacy-first — everything runs in your browser.</p>
-            <div class="hero-ctas">
-                <a href="pages/trainer.html" class="btn">Open Trainer</a>
-                <a href="pages/cards.html" class="btn secondary">Word Cards</a>
-                <a href="data/phrases.json" download class="btn ghost">Export phrases</a>
-            </div>
-        </div>
 
-        <div class="feature-grid">
-            <div class="feature">
-                <h3>Real-time feedback</h3>
-                <p>Speak phrases and see which words you pronounced correctly — helpful highlights and confidence shown per phrase.</p>
-            </div>
-            <div class="feature">
-                <h3>Targeted vocabulary</h3>
-                <p>Study important words and phrasal verbs with quick translations and TTS playback.</p>
-            </div>
-            <div class="feature">
-                <h3>Customizable lists</h3>
-                <p>Add your own phrases, export and import JSON to carry your progress between devices.</p>
-            </div>
-            <div class="feature">
-                <h3>Works offline-ish</h3>
-                <p>Phrases are stored in localStorage; no backend required. For best speech recognition, use Chrome/Edge.</p>
-            </div>
-        </div>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans min-h-screen">
 
-        <div class="footer">Built with web APIs • Privacy-first • Try the Trainer and Cards</div>
-    </div>
-</body>
+    <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans min-h-screen">
+        <header
+            class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+            <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary p-2 rounded-lg">
+                        <span class="material-symbols-rounded text-white text-2xl">mic</span>
+                    </div>
+                    <div>
+                        <h1 class="font-display font-bold text-xl tracking-tight text-primary dark:text-slate-100">
+                            English Trainer</h1>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Premium Education</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium hover:text-primary dark:hover:text-accent transition-colors flex items-center gap-2"
+                        href="index.html">
+                        <span class="material-symbols-rounded text-lg">home</span> Home
+                    </a>
+                    <a class="text-sm font-medium hover:text-primary dark:hover:text-accent transition-colors flex items-center gap-2"
+                        href="pages/cards.html">
+                        <span class="material-symbols-rounded text-lg">style</span> Word Cards
+                    </a>
+                    <a class="text-sm font-medium hover:text-primary dark:hover:text-accent transition-colors flex items-center gap-2"
+                        href="pages/trainer.html">
+                        <span class="material-symbols-rounded text-lg">record_voice_over</span> Trainer
+                    </a>
+                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
+                        onclick="document.documentElement.classList.toggle('dark')">
+                        <span class="material-symbols-rounded">dark_mode</span>
+                    </button>
+                </nav>
+            </div>
+        </header>
+        <main class="max-w-6xl mx-auto px-6 py-12">
+            <div class="mb-12">
+                <h2 class="font-display text-4xl font-bold mb-4 text-primary">Speak with Confidence</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Practice pronunciation, learn important words &
+                    phrasal verbs, and get immediate per-word feedback using your browser's speech APIs. Quick, simple,
+                    and privacy-first — everything runs in your browser.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <a href="pages/trainer.html"
+                    class="group bg-gradient-to-br from-primary to-blue-900 text-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-rounded text-4xl">record_voice_over</span>
+                        <h3 class="font-display text-2xl font-bold">Open Trainer</h3>
+                    </div>
+                    <p class="text-blue-100">Practice speaking and receive real-time per-word feedback.</p>
+                </a>
+
+                <a href="pages/cards.html"
+                    class="group bg-gradient-to-br from-accent to-yellow-500 text-slate-900 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-rounded text-4xl">style</span>
+                        <h3 class="font-display text-2xl font-bold">Word Cards</h3>
+                    </div>
+                    <p class="text-slate-700">Study vocabulary with flashcards and instant pronunciation.</p>
+                </a>
+            </div>
+
+            <div
+                class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 mb-12">
+                <h3 class="font-display text-2xl font-bold mb-8 text-slate-900 dark:text-slate-100">Why Choose English
+                    Trainer?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex gap-4 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                        <span class="material-symbols-rounded text-3xl text-primary flex-shrink-0">check_circle</span>
+                        <div>
+                            <h4 class="font-semibold mb-2 text-slate-900 dark:text-slate-100">Real-time Feedback</h4>
+                            <p class="text-slate-600 dark:text-slate-400">Speak phrases and see which words you
+                                pronounced correctly — helpful highlights and confidence shown per phrase.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                        <span class="material-symbols-rounded text-3xl text-primary flex-shrink-0">library_books</span>
+                        <div>
+                            <h4 class="font-semibold mb-2 text-slate-900 dark:text-slate-100">Targeted Vocabulary</h4>
+                            <p class="text-slate-600 dark:text-slate-400">Study important words and phrasal verbs with
+                                quick translations and TTS playback.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                        <span class="material-symbols-rounded text-3xl text-primary flex-shrink-0">edit_square</span>
+                        <div>
+                            <h4 class="font-semibold mb-2 text-slate-900 dark:text-slate-100">Customizable Lists</h4>
+                            <p class="text-slate-600 dark:text-slate-400">Add your own phrases, export and import JSON
+                                to carry your progress between devices.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                        <span class="material-symbols-rounded text-3xl text-primary flex-shrink-0">cloud_off</span>
+                        <div>
+                            <h4 class="font-semibold mb-2 text-slate-900 dark:text-slate-100">Works Offline-ish</h4>
+                            <p class="text-slate-600 dark:text-slate-400">Phrases are stored in localStorage; no backend
+                                required. For best speech recognition, use Chrome/Edge.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="data/phrases.json" download
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-xl font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
+                    <span class="material-symbols-rounded">download</span>
+                    Export Phrases
+                </a>
+            </div>
+        </main>
+        <footer class="py-12 border-t border-slate-200 dark:border-slate-800 mt-12">
+            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                <p class="text-sm text-slate-500">© 2025 English Trainer Pro. Designed for excellence.</p>
+                <div class="flex gap-8">
+                    <a class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors"
+                        href="#">Privacy</a>
+                    <a class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors"
+                        href="#">Support</a>
+                    <a class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors"
+                        href="#">Account</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+
 </html>

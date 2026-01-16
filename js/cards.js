@@ -27,20 +27,24 @@
   let flipped = false;
 
   function renderCard() {
-    const container = document.querySelector('.card');
+    const container = document.querySelector('.card-inner');
     const front = document.getElementById('cardFront');
     const back = document.getElementById('cardBack');
     const progress = document.getElementById('cardProgress');
     if (!front || !back || !container) return;
     if (!cards.length) {
-      front.textContent = 'No cards available.';
-      back.textContent = '';
+      const frontContent = front.querySelector('div:last-child');
+      if (frontContent) frontContent.textContent = 'No cards available.';
+      const backContent = back.querySelector('div:last-child');
+      if (backContent) backContent.textContent = '';
       if (progress) progress.textContent = '0 / 0';
       return;
     }
     const c = cards[idx % cards.length];
-    front.textContent = c.term || '';
-    back.textContent = c.translation || '';
+    const frontContent = front.querySelector('div:last-child');
+    const backContent = back.querySelector('div:last-child');
+    if (frontContent) frontContent.textContent = c.term || '';
+    if (backContent) backContent.textContent = c.translation || '';
     if (flipped) container.classList.add('flipped'); else container.classList.remove('flipped');
     if (progress) progress.textContent = `${idx + 1} / ${cards.length}`;
   }
@@ -97,7 +101,12 @@
     renderCard();
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  // Ensure init runs after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    // DOM is already ready, call init immediately
+    setTimeout(init, 0);
+  }
 
 })();

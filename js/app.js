@@ -86,14 +86,14 @@
             const btnListen = document.createElement('button');
             btnListen.className = 'btn btn-listen';
             btnListen.type = 'button';
-            btnListen.innerHTML = '👂 Listen';
+            btnListen.innerHTML = '<span class="material-symbols-rounded">volume_up</span><span>Listen</span>';
             btnListen.addEventListener('click', () => speakText(phrase));
 
             const btnRecord = document.createElement('button');
             btnRecord.className = 'btn btn-record';
             btnRecord.id = `rec-btn-${index}`;
             btnRecord.type = 'button';
-            btnRecord.innerHTML = '🎙️ Practice';
+            btnRecord.innerHTML = '<span class="material-symbols-rounded">record_voice_over</span><span>Practice</span>';
             btnRecord.addEventListener('click', () => startRecording(phrase, index));
 
             controls.appendChild(btnListen);
@@ -150,8 +150,8 @@
         const btn = document.getElementById(`rec-btn-${index}`);
         const resultDiv = document.getElementById(`result-${index}`);
 
-        btn.innerText = '🛑 Listening...';
-        btn.className = 'btn-record btn-recording';
+        btn.innerHTML = '<span class="material-symbols-rounded">stop_circle</span><span>Listening...</span>';
+        btn.className = 'btn btn-record btn-recording';
         btn.disabled = true;
         resultDiv.style.display = 'none';
 
@@ -179,8 +179,8 @@
     function resetButton(index) {
         const btn = document.getElementById(`rec-btn-${index}`);
         if (!btn) return;
-        btn.innerText = '🎙️ Practice';
-        btn.className = 'btn-record';
+        btn.innerHTML = '<span class="material-symbols-rounded">record_voice_over</span><span>Practice</span>';
+        btn.className = 'btn btn-record';
         btn.disabled = false;
     }
 
