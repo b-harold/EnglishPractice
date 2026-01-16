@@ -1,32 +1,30 @@
-// cards.js - simple flashcards derived from phrases.json
+// cards.js - simple flashcards with embedded data
 (function () {
   'use strict';
+
+  // Embedded cards data (no fetch needed)
+  const DEFAULT_CARDS = [
+    { "term": "wonder", "translation": "preguntarse / maravilla" },
+    { "term": "wonderful", "translation": "maravilloso" },
+    { "term": "integrated", "translation": "integrado" },
+    { "term": "improve", "translation": "mejorar" },
+    { "term": "practice", "translation": "practicar" },
+    { "term": "take off", "translation": "despegar / quitar (ropa)" },
+    { "term": "pick up", "translation": "recoger / aprender (informal)" },
+    { "term": "turn on", "translation": "encender" },
+    { "term": "turn off", "translation": "apagar" },
+    { "term": "look after", "translation": "cuidar de" },
+    { "term": "get along (with)", "translation": "llevarse bien (con)" },
+    { "term": "give up", "translation": "rendirse / dejar de" },
+    { "term": "pick out", "translation": "elegir / seleccionar" },
+    { "term": "break down", "translation": "averiarse / descomponer" },
+    { "term": "carry on", "translation": "continuar" }
+  ];
 
   // cards: array of { term, translation }
   let cards = [];
   let idx = 0;
   let flipped = false;
-
-  function loadCardsJson() {
-    return fetch('cards.json', { cache: 'no-store' })
-      .then(r => r.ok ? r.json() : null)
-      .catch(() => null);
-  }
-
-  function loadPhrasesFallback() {
-    // fallback keeps previous behavior: derive words from phrases.json
-    return fetch('phrases.json', { cache: 'no-store' })
-      .then(r => r.ok ? r.json() : [])
-      .catch(() => []);
-  }
-
-  function buildCardsFromPhrases(phrases) {
-    const set = new Set();
-    phrases.forEach(p => {
-      p.split(/\s+/).map(w => w.replace(/[^a-z0-9']/gi, '').toLowerCase()).filter(Boolean).forEach(w => set.add(w));
-    });
-    return Array.from(set).sort().map(w => ({ term: w, translation: '' }));
-  }
 
   function renderCard() {
     const container = document.querySelector('.card');
@@ -93,19 +91,10 @@
     });
     if (shuffleBtn) shuffleBtn.addEventListener('click', shuffleCards);
 
-    loadCardsJson().then(data => {
-      if (Array.isArray(data) && data.length) {
-          // normalize items to have term/translation
-          cards = data.map(item => ({ term: String(item.term || item.word || ''), translation: String(item.translation || item.meaning || '') }));
-          idx = 0; renderCard();
-        } else {
-        // fallback
-        loadPhrasesFallback().then(ps => {
-            cards = buildCardsFromPhrases(ps || []);
-            idx = 0; renderCard();
-        });
-      }
-    });
+    // Use embedded default cards (no fetch)
+    cards = DEFAULT_CARDS;
+    idx = 0;
+    renderCard();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
