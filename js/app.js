@@ -16,15 +16,8 @@
         }
     }
 
-    // State - will attempt to load from localStorage or embedded defaults
+    // State - will attempt to load from localStorage or fetch from phrases.json
     let phrases = [];
-
-    // Embedded default phrases (no fetch needed)
-    const DEFAULT_PHRASES = [
-        'Hello, how are you today?',
-        'I would like to learn English.',
-        'The weather is nice.'
-    ];
 
     function loadFromLocalStorage() {
         try {
@@ -385,9 +378,19 @@
             return;
         }
 
-        // Otherwise use embedded default phrases
-        phrases = DEFAULT_PHRASES;
-        renderPhrases();
+        // Otherwise fetch from phrases.json
+        fetch('../data/phrases.json')
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    phrases = data;
+                }
+                renderPhrases();
+            })
+            .catch(error => {
+                console.error('Failed to fetch phrases from phrases.json:', error);
+                renderPhrases();
+            });
     }
 
     // Allow user to download current phrases as JSON (manual persistence)
